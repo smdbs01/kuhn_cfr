@@ -31,22 +31,22 @@ python run main.py
 
 ## Example Output
 
-Below is the output after running the CFR algorithm for 100,000 iterations and testing the resulting strategies over 10,000 games:
+Below is the output after running the CFR algorithm for 10,000 iterations and testing the resulting strategies over 10,000 games:
 
 ```plaintext
 Player 0 average strategy:
-  Infoset 0: 0.885 0.115
+  Infoset 0: 0.867 0.133
   Infoset 1: 1.000 0.000
-  Infoset 2: 1.000 0.000
-  Infoset 3: 0.557 0.443
-  Infoset 4: 0.676 0.324
+  Infoset 2: 0.999 0.001
+  Infoset 3: 0.446 0.554
+  Infoset 4: 0.594 0.406
   Infoset 5: 0.000 1.000
 Player 1 average strategy:
-  Infoset 0: 0.666 0.334
+  Infoset 0: 0.653 0.347
   Infoset 1: 1.000 0.000
-  Infoset 2: 1.000 0.000
-  Infoset 3: 0.666 0.334
+  Infoset 2: 0.998 0.002
+  Infoset 3: 0.643 0.357
   Infoset 4: 0.000 1.000
   Infoset 5: 0.000 1.000
-Average Payoff over 10000 games: Player 0: -0.3602, Player 1: 0.3602
+Average Payoff over 10000 games: Player 0: -0.011, Player 1: 0.011
 ```

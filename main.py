@@ -3,7 +3,7 @@ import numpy as np
 
 if __name__ == "__main__":
     np.random.seed(42)
-    strategies = solve(100000)
+    strategies = solve(10000)
     for i, strategy in enumerate(strategies):
         avg_strategy = strategy.get_average_strategy()
         print(f"Player {i} average strategy:")

@@ -134,12 +134,15 @@ def cfr(
     infoset = game.get_infoset(state, player)
     strategy = strategies[player].get_strategy(infoset)
 
+    reach_prob_current = p1 if player == 0 else p2
+    strategies[player].update_strategy_sum(infoset, strategy, reach_prob_current)
+
     util = jnp.zeros(game.num_actions)
     node_util = 0.0
 
     for a in range(game.num_actions):
         action_prob: float = strategy[a].item()
-        new_state, terminal = game.step(state, a)
+        new_state, is_terminal = game.step(state, a)
 
         if player == 0:
             new_p1 = p1 * action_prob
@@ -148,20 +151,18 @@ def cfr(
             new_p1 = p1
             new_p2 = p2 * action_prob
 
-        util_a = cfr(game, new_state, i, strategies, terminal, new_p1, new_p2)
+        util_a = cfr(game, new_state, i, strategies, is_terminal, new_p1, new_p2)
         util = util.at[a].set(util_a)
         node_util += action_prob * util_a
 
     if player == i:
         for a in range(game.num_actions):
-            regret = (util[a] - node_util) * (p2 if i == 0 else p1)
+            regret = util[a] - node_util
+            reach_prob = p2 if i == 0 else p1
             strategies[player].update_regrets(
                 infoset,
                 jnp.array([0 if j != a else regret for j in range(game.num_actions)]),
-                1.0,
-            )
-            strategies[player].update_strategy_sum(
-                infoset, strategy, p1 if player == 0 else p2
+                reach_prob,
             )
 
     return node_util
